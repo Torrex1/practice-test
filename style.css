@@ -1,0 +1,92 @@
+* {
+    font-family: 'Arial', sans-serif;
+}
+
+.wrapper_header {
+    color: #3a3a59;
+    margin-top: 20px;
+}
+
+.wrapper_body {
+    background-color: #f6f6f6;
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 100%;
+    height: 60vh;
+    padding: 35px;
+    max-height: 500px;
+    overflow-y: auto;
+
+}
+
+#wrapper_body-title {
+    font-size: 25px;
+}
+
+.card-name {
+    color: #56AEFF;
+    padding-left: 23px;
+    font-size: 25px;
+}
+
+.speciality-card {
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 15px;
+    margin-top: 20px;
+
+}
+
+th, td {
+    font-weight: normal;
+    font-size: 20px;
+    padding-left: 23px;
+}
+
+.search {
+    display: inline-flex;
+    border: 1px solid #afafaf;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.search-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    order: -1;
+    color: #afafaf;
+}
+
+.search-field {
+    width: 1250px;
+    border: 0;
+    outline: unset;
+}
+
+.filter-btn {
+    margin: 5px;
+    font-size: 20px;
+    border: 0;
+    padding: 6px;
+    color: #8f8f8f;
+    background-color: #f5f5f5;
+}
+
+.filter-btn[state=true] {
+    color: #d37dea;
+}
+
+.unpressed_filterBtn {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+
+    font-size: 75px;
+    font-weight: bold;
+    color: #afafaf;
+}
+
+
