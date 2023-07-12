@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Json</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
 
@@ -15,13 +14,15 @@
                 <h1>Выбор специальности:</h1>
                 <h2>Специальность #1</h2>
 
+                <!-- Кнопка-триггер модального окна -->
+                <span class="edu_text btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Выбранные специальности</span>
+
                 <div class="search">
                     <input class="search-field" type="text" placeholder="Поиск по специальности">
                     <img src="https://img.icons8.com/ios-glyphs/256/search.png" alt="" class="search-icon"/>
                 </div>
 
                 <button data-filter-type="type_order" data-filter="1" class="filter-btn">Есть бюджет</button>
-                <button data-filter-type="type_order" data-filter="6" class="filter-btn">Есть платка</button>
                 <button data-filter-type="type_order" data-filter="2,3,4" class="filter-btn">Есть особые, специальные и целевые квоты</button>
                 <br>
                 <button data-filter-type="form_group" data-filter="1" class="filter-btn">Очное</button>
@@ -33,15 +34,31 @@
                 <button data-filter-type="preparation_level" data-filter="Бакалавриат" class="filter-btn">Бакалавриат</button>
             </div>
 
-
-<!--            блок для хранение элементов учебных карт-->
-
+        <!--Блок для хранение элементов учебных карт-->
             <div class="wrapper_body"></div>
 
         </div>
     </div>
 
-<!--    <script src="main.js"></script>-->
+    <!--Модальное окно-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Выбранные специальности</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary">Сохранить изменения</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="scripts.js" ></script>
+
 </body>
 </html>

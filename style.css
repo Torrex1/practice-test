@@ -27,9 +27,16 @@
     color: #56AEFF;
     padding-left: 23px;
     font-size: 25px;
+    cursor: pointer;
+}
+
+.card-name:hover{
+    color: #2287f5;
+    font-weight: 600;
 }
 
 .speciality-card {
+    border: 2px solid black;
     border-radius: 10px;
     background-color: #fff;
     padding: 15px;
@@ -41,6 +48,10 @@ th, td {
     font-weight: normal;
     font-size: 20px;
     padding-left: 23px;
+}
+
+#edu_type, #edu_form {
+    font-weight: bold;
 }
 
 .search {
@@ -89,4 +100,7 @@ th, td {
     color: #afafaf;
 }
 
+.edu_text {
+    float: right;
+}
 

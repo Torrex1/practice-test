@@ -2,6 +2,8 @@ let lists;
 let filters = undefined;
 let searchValue = '';
 
+const modal_body = document.querySelector('.modal-body');
+
 const ed_card = document.querySelector('.wrapper_body');
 
 async function json_file() {
@@ -23,18 +25,22 @@ function render() {
             if (!filterGroup(group)) continue;
 
             buffer += `
-                <div class="speciality-card" id="${listId}">
+                <div class="speciality-card" id="${group.id}">
                     <h5 class="card-name">${listItem.name}</h5>
                         <table class="table-card">
                             <tr>
                                 <th>Обязательные экзамены:</th>
                                 <th>Экзамены по выбору:</th>
                                 <th>Мест:</th>
+                                <th>Тип обучения:</th>
+                                <th>Форма обучения:</th>
                             </tr>
                             <tr>
                                 <td>Русский, Математика</td>
                                 <td>Информатика, Физика</td>
                                 <td>${group.quantity}</td>
+                                <td id="edu_type">${group.type}</td>
+                                <td id="edu_form">${group.education_form}</td>
                             </tr>
                         </table>
                     </div>
@@ -42,6 +48,15 @@ function render() {
         }
     }
     ed_card.innerHTML = buffer;
+    document.querySelectorAll('.card-name').forEach(name => {
+        document.querySelectorAll('.speciality-card').forEach(card => {
+            name.addEventListener('click', () => {
+                if (card.contains(name)) {
+                    modal_body.append(card);
+                }
+            })
+        })
+    })
 }
 
 function filterGroup(group) {
@@ -97,6 +112,7 @@ function filterEvent(event) {
 
     document.querySelectorAll('.filter-btn').forEach(btn => {
         if (btn.getAttribute('state') === 'true') {
+            console.log(btn.getAttribute('state'));
             if (btn.dataset.filterType !== 'dot') {
                 let filterValues = arrayStrToNumbers(btn.dataset.filter.split(','));
 
@@ -113,7 +129,7 @@ function filterEvent(event) {
 // обработчик кнопок фильтрации
 function filterHandler() {
     document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', filterEvent)
+        btn.addEventListener('click', filterEvent);
     });
 }
 
