@@ -15,13 +15,13 @@
                 <h2>Специальность #1</h2>
 
                 <!-- Кнопка-триггер модального окна -->
-                <span class="edu_text btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Выбранные специальности</span>
+                <span class="edu_text btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#eduModal">Выбранные специальности</span>
 
                 <div class="search">
                     <input class="search-field" type="text" placeholder="Поиск по специальности">
                     <img src="https://img.icons8.com/ios-glyphs/256/search.png" alt="" class="search-icon"/>
                 </div>
-
+                
                 <button data-filter-type="type_order" data-filter="1" class="filter-btn">Есть бюджет</button>
                 <button data-filter-type="type_order" data-filter="2,3,4" class="filter-btn">Есть особые, специальные и целевые квоты</button>
                 <br>
@@ -41,17 +41,24 @@
     </div>
 
     <!--Модальное окно-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="eduModal" tabindex="-1" aria-labelledby="eduModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Выбранные специальности</h5>
+                    <h4 class="modal-title" id="eduModalLabel">Выбранные специальности</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
-                <div class="modal-body"></div>
+                <div class="modal-body">
+                    <label id="modal_text">Не выбрано ни одной специальности</label>
+
+                    <label class="float-end">
+                        Выделить все карточки <input class="box ms-auto" type="checkbox">
+                    </label>
+
+                    <br>
+                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary">Сохранить изменения</button>
+                    <button type="button" class="removeCard btn btn-danger">Удалить выбранную специальность</button>
                 </div>
             </div>
         </div>

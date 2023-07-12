@@ -48,11 +48,24 @@ function render() {
         }
     }
     ed_card.innerHTML = buffer;
+
     document.querySelectorAll('.card-name').forEach(name => {
         document.querySelectorAll('.speciality-card').forEach(card => {
             name.addEventListener('click', () => {
                 if (card.contains(name)) {
-                    modal_body.append(card);
+
+                    let checkbox_input = document.createElement('input');
+                    checkbox_input.type = 'checkbox';
+
+                    modal_body.append(checkbox_input, card);
+
+                    checkbox_input.addEventListener('click', () => {
+                        document.querySelector('.removeCard').addEventListener('click', () => {
+                            checkbox_input.remove();
+                            ed_card.append(card);
+                        })
+                    })
+                    document.querySelector('#modal_text').style.display = 'none';
                 }
             })
         })
