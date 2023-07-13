@@ -51,14 +51,19 @@ function render() {
 
     document.querySelectorAll('.card-name').forEach(name => {
         document.querySelectorAll('.speciality-card').forEach(card => {
+
             name.addEventListener('click', () => {
+
                 if (card.contains(name)) {
 
-                    // создание checkbox для каждой карточки
                     let checkbox_input = document.createElement('input');
-                    checkbox_input.type = 'checkbox';
 
-                    modal_body.append(checkbox_input, card);
+                    if (ed_card.contains(card)) {
+                        // создание checkbox для каждой карточки
+                        checkbox_input.type = 'checkbox';
+
+                        modal_body.append(checkbox_input, card);
+                    }
 
                     // установка для каждого checkbox атрибута checked (если кнопка нажата, ей присвается атрибут checked
                     checkbox_input.addEventListener('change', () => {
@@ -78,6 +83,7 @@ function render() {
                         }
                     })
                     document.querySelector('#modal_text').style.display = 'none';
+
                 }
             })
         })
