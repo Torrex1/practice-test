@@ -104,3 +104,6 @@ th, td {
     float: right;
 }
 
+.card-color {
+    background-color: rgb(255 255 0 / 0.5);
+}

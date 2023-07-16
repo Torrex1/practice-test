@@ -52,40 +52,62 @@ function render() {
     document.querySelectorAll('.card-name').forEach(name => {
         document.querySelectorAll('.speciality-card').forEach(card => {
 
+            const checkbox = document.querySelector('.checkboxCard');
             name.addEventListener('click', () => {
-
                 if (card.contains(name)) {
 
-                    let checkbox_input = document.createElement('input');
+                    // запрет на выделение текста
+                    name.addEventListener('selectstart', function (event) {
+                        event.preventDefault();
+                        return false;
+                    })
 
+                    // работа вне модального окна
                     if (ed_card.contains(card)) {
-                        // создание checkbox для каждой карточки
-                        checkbox_input.type = 'checkbox';
-
-                        modal_body.append(checkbox_input, card);
+                        modal_body.append(card);
                     }
 
-                    // установка для каждого checkbox атрибута checked (если кнопка нажата, ей присвается атрибут checked
-                    checkbox_input.addEventListener('change', () => {
-                        checkbox_input.toggleAttribute('checked');
-                    })
+                    // работа в модальном окне
+                    if (modal_body.contains(card)) {
 
-                    // установка атрибута для checkbox, который выделяет все карточки
-                    document.querySelector('.select_allCard').addEventListener('change', () => {
-                        checkbox_input.toggleAttribute('checked');
-                    });
+                        document.querySelector('#modal_text').style.display = 'none';
+                        checkbox.removeAttribute('disabled');
 
-                    // удаление карточки при нажатом checkbox
-                    document.querySelector('.removeCard').addEventListener('click', () => {
-                        if (checkbox_input.hasAttribute('checked')) {
-                            checkbox_input.remove();
-                            ed_card.append(card);
-                        }
-                    })
-                    document.querySelector('#modal_text').style.display = 'none';
+                        // добавление стиля карточкам
+                        name.addEventListener('click', () => {
+                            card.classList.toggle('card-color');
+                        })
 
+                        // добавление атрибута на чекбокс
+                        checkbox.addEventListener('click', (event) => {
+                            event.target.setAttribute('checked', event.target.getAttribute('checked') !== 'true');
+                        })
+
+                        // при клике на флашок, выделяются все карточки
+                        checkbox.addEventListener('click', () => {
+                            card.classList.toggle('card-color');
+                        })
+
+
+
+                        //удаление карточки из модального окна
+                        document.querySelector('.removeCard').addEventListener('click', () => {
+                            if (card.classList.contains('card-color')) {
+                                card.classList.remove('card-color');
+                                ed_card.append(card);
+                            }
+                        })
+
+                        // снятие флажка у checkbox при выходе из модального окна
+                        document.querySelector('.modal').addEventListener('hidden.bs.modal', () => {
+                            checkbox.checked = false;
+                            card.classList.remove('card-color');
+                            checkbox.removeAttribute('checked');
+                        })
+                    }
                 }
-            })
+            });
+
         })
     })
 }
@@ -143,7 +165,6 @@ function filterEvent(event) {
 
     document.querySelectorAll('.filter-btn').forEach(btn => {
         if (btn.getAttribute('state') === 'true') {
-            console.log(btn.getAttribute('state'));
             if (btn.dataset.filterType !== 'dot') {
                 let filterValues = arrayStrToNumbers(btn.dataset.filter.split(','));
 
@@ -208,3 +229,52 @@ async function init() {
     hide_show_text();
 }
 init();
+                                                // ***temp trash***
+
+// if (card.contains(name)) {
+//     let checkbox_input = document.createElement('input');
+//     checkbox_input.style.position = 'relative';
+//     checkbox_input.style.top = '20px';
+//
+//     // проверка являестя ли карточка дочерним элементом (не модального окна)
+//     if (ed_card.contains(card)) {
+//
+//         // создание checkbox для каждой карточки
+//         checkbox_input.type = 'checkbox';
+//
+//         modal_body.append(checkbox_input, card);
+//     }
+//
+//     if (!modal_body.contains(card)) {
+//         console.log(card);
+//     }
+//     // установка для каждого checkbox атрибута checked (если кнопка нажата, ей присвается атрибут checked
+//     checkbox_input.addEventListener('change', () => {
+//         checkbox_input.toggleAttribute('checked');
+//     })
+//
+//     document.querySelector('.select_allCard').addEventListener('change', () => {
+//         document.querySelector('.select_allCard').toggleAttribute('checked');
+//     })
+//
+//     // установка атрибута для checkbox, который выделяет все карточки
+//     // document.querySelector('.select_allCard').addEventListener('change', () => {
+//     //     checkbox_input.toggleAttribute('checked');
+//     // });
+//
+//
+//     // удаление карточки при нажатом checkbox
+//     document.querySelector('.removeCard').addEventListener('click', () => {
+//         if (checkbox_input.hasAttribute('checked')) {
+//             checkbox_input.remove();
+//             ed_card.append(card);
+//         }
+//     })
+//     document.querySelector('#modal_text').style.display = 'none';
+// }
+
+
+
+
+//trash #2
+
