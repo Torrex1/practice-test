@@ -67,7 +67,7 @@ function render() {
                         // ограничение на количество карточек
                         if (modalCards.childElementCount < 3) {
                             modalCards.append(card);
-                        }else {
+                        } else {
                             alert('Можно выбрать не больше 3 направлений!');
                         }
                     }
@@ -88,24 +88,32 @@ function render() {
                             event.target.setAttribute('checked', event.target.getAttribute('checked') !== 'true');
                         })
 
+                        // снятие флажка у checkbox при выходе из модального окна
+                        document.querySelector('.modal').addEventListener('hidden.bs.modal', () => {
+                            checkbox.checked = false;
+                            if (checkbox.checked === false)
+                                card.classList.remove('card-color');
+
+                            if (modalCards.childElementCount === 0) {
+                                checkbox.setAttribute('disabled', "");
+                            }
+                        })
+
                         // при клике на флашок, выделяются все карточки
                         checkbox.addEventListener('click', () => {
-                            card.classList.toggle('card-color');
+                            if (checkbox.checked === true) {
+                                card.classList.add('card-color');
+                            } else {
+                                card.classList.remove('card-color');
+                            }
                         })
 
                         //удаление карточки из модального окна
                         document.querySelector('.removeCard').addEventListener('click', () => {
-                            if (card.classList.contains('card-color')) {
+                            if (getComputedStyle(card).backgroundColor) {
                                 card.classList.remove('card-color');
-                                ed_card.append(card);
+                                ed_card.insertBefore(card, document.querySelector('.speciality-card'));
                             }
-                        })
-
-                        // снятие флажка у checkbox при выходе из модального окна
-                        document.querySelector('.modal').addEventListener('hidden.bs.modal', () => {
-                            checkbox.checked = false;
-                            card.classList.remove('card-color');
-                            checkbox.removeAttribute('checked');
                         })
                     }
                 }
