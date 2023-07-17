@@ -91,6 +91,7 @@ function render() {
                         // снятие флажка у checkbox при выходе из модального окна
                         document.querySelector('.modal').addEventListener('hidden.bs.modal', () => {
                             checkbox.checked = false;
+
                             if (checkbox.checked === false)
                                 card.classList.remove('card-color');
 
