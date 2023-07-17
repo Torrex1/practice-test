@@ -2,7 +2,7 @@ let lists;
 let filters = undefined;
 let searchValue = '';
 
-const modal_body = document.querySelector('.modal-body');
+const modalCards = document.querySelector('.modalCards');
 
 const ed_card = document.querySelector('.wrapper_body');
 
@@ -64,11 +64,16 @@ function render() {
 
                     // работа вне модального окна
                     if (ed_card.contains(card)) {
-                        modal_body.append(card);
+                        // ограничение на количество карточек
+                        if (modalCards.childElementCount < 3) {
+                            modalCards.append(card);
+                        }else {
+                            alert('Можно выбрать не больше 3 направлений!');
+                        }
                     }
 
                     // работа в модальном окне
-                    if (modal_body.contains(card)) {
+                    if (modalCards.contains(card)) {
 
                         document.querySelector('#modal_text').style.display = 'none';
                         checkbox.removeAttribute('disabled');
@@ -87,8 +92,6 @@ function render() {
                         checkbox.addEventListener('click', () => {
                             card.classList.toggle('card-color');
                         })
-
-
 
                         //удаление карточки из модального окна
                         document.querySelector('.removeCard').addEventListener('click', () => {
@@ -242,10 +245,10 @@ init();
 //         // создание checkbox для каждой карточки
 //         checkbox_input.type = 'checkbox';
 //
-//         modal_body.append(checkbox_input, card);
+//         modalCards.append(checkbox_input, card);
 //     }
 //
-//     if (!modal_body.contains(card)) {
+//     if (!modalCards.contains(card)) {
 //         console.log(card);
 //     }
 //     // установка для каждого checkbox атрибута checked (если кнопка нажата, ей присвается атрибут checked
