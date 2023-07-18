@@ -5,6 +5,11 @@ let searchValue = '';
 const modalCards = document.querySelector('.modalCards');
 const ed_card = document.querySelector('.wrapper_body');
 
+async function json_file() {
+    let resp = await fetch('campaign.json');
+    return await resp.json();
+}
+
 // создание уведомления
 function alertCreate() {
     let alert = document.createElement('div');
@@ -13,18 +18,13 @@ function alertCreate() {
     alert.innerText = 'Нельзя выбрать больше 3-х специальностей!';
 
     let closeAlert = document.createElement('button');
-    closeAlert.classList.add('btn-close');
+    closeAlert.classList.add('btn-close', 'shadow-none');
     closeAlert.setAttribute('type', 'button');
     closeAlert.setAttribute('data-bs-dismiss', 'alert');
     closeAlert.setAttribute('aria-label', 'Close');
 
     alert.append(closeAlert);
     document.querySelector('#alertContainer').append(alert);
-}
-
-async function json_file() {
-    let resp = await fetch('campaign.json');
-    return await resp.json();
 }
 
 function render() {
@@ -67,9 +67,10 @@ function render() {
         }
     }
     ed_card.innerHTML = buffer;
+    setIcon();
 
-    document.querySelectorAll('.card-name').forEach(name => {
-        document.querySelectorAll('.speciality-card').forEach(card => {
+    document.querySelectorAll('.speciality-card').forEach(card => {
+        document.querySelectorAll('.card-name').forEach(name => {
 
             // запрет на выделение текста
             card.addEventListener('selectstart', function (event) {
@@ -151,11 +152,21 @@ function render() {
                     }
                 }
             });
-
         })
     })
+
 }
 
+function setIcon() {
+    document.querySelectorAll('.speciality-card').forEach(card => {
+        if (card.innerHTML.includes('true')) {
+            let image = document.createElement('img');
+            image.src = 'assets/laptop_icon.png';
+            image.classList.add('icon-style');
+            card.append(image);
+        }
+    })
+}
 
 function filterGroup(group) {
     let flags = {
