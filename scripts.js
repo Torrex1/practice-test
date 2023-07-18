@@ -6,6 +6,23 @@ const modalCards = document.querySelector('.modalCards');
 
 const ed_card = document.querySelector('.wrapper_body');
 
+// создание уведомления
+function alertCreate() {
+    let alert = document.createElement('div');
+    alert.classList.add('alert', 'alert-warning', 'alert-dismissible', 'fade', 'show');
+    alert.setAttribute('role', 'alert');
+    alert.innerText = 'Нельзя выбрать больше 3-х специальностей!';
+
+    let closeAlert = document.createElement('button');
+    closeAlert.classList.add('btn-close');
+    closeAlert.setAttribute('type', 'button');
+    closeAlert.setAttribute('data-bs-dismiss', 'alert');
+    closeAlert.setAttribute('aria-label', 'Close');
+
+    alert.append(closeAlert);
+    document.querySelector('#alertContainer').append(alert);
+}
+
 async function json_file() {
     let resp = await fetch('campaign.json');
     return await resp.json();
@@ -54,8 +71,8 @@ function render() {
             const checkbox = document.querySelector('.checkboxCard');
 
             name.addEventListener('click', () => {
-                if (card.contains(name)) {
 
+                if (card.contains(name)) {
                     // запрет на выделение текста
                     name.addEventListener('selectstart', function (event) {
                         event.preventDefault();
@@ -68,7 +85,8 @@ function render() {
                         if (modalCards.childElementCount < 3) {
                             modalCards.append(card);
                         } else {
-                            alert('Можно выбрать не больше 3 направлений!');
+                            // создание уведомления
+                            alertCreate();
                         }
                     }
 
@@ -90,7 +108,7 @@ function render() {
 
                         // снятие флажка у checkbox при выходе из модального окна
                         document.querySelector('.modal').addEventListener('hidden.bs.modal', () => {
-                            // checkbox.checked = false;
+                            checkbox.checked = false;
 
                             if (checkbox.checked === false)
                                 card.classList.remove('card-color');
@@ -241,56 +259,7 @@ async function init() {
     searchHandler();
     filterHandler();
     hide_show_text();
-    setIcon(group);
-
 }
 init();
-                                                // ***temp trash***
 
-// if (card.contains(name)) {
-//     let checkbox_input = document.createElement('input');
-//     checkbox_input.style.position = 'relative';
-//     checkbox_input.style.top = '20px';
-//
-//     // проверка являестя ли карточка дочерним элементом (не модального окна)
-//     if (ed_card.contains(card)) {
-//
-//         // создание checkbox для каждой карточки
-//         checkbox_input.type = 'checkbox';
-//
-//         modalCards.append(checkbox_input, card);
-//     }
-//
-//     if (!modalCards.contains(card)) {
-//         console.log(card);
-//     }
-//     // установка для каждого checkbox атрибута checked (если кнопка нажата, ей присвается атрибут checked
-//     checkbox_input.addEventListener('change', () => {
-//         checkbox_input.toggleAttribute('checked');
-//     })
-//
-//     document.querySelector('.select_allCard').addEventListener('change', () => {
-//         document.querySelector('.select_allCard').toggleAttribute('checked');
-//     })
-//
-//     // установка атрибута для checkbox, который выделяет все карточки
-//     // document.querySelector('.select_allCard').addEventListener('change', () => {
-//     //     checkbox_input.toggleAttribute('checked');
-//     // });
-//
-//
-//     // удаление карточки при нажатом checkbox
-//     document.querySelector('.removeCard').addEventListener('click', () => {
-//         if (checkbox_input.hasAttribute('checked')) {
-//             checkbox_input.remove();
-//             ed_card.append(card);
-//         }
-//     })
-//     document.querySelector('#modal_text').style.display = 'none';
-// }
-
-
-
-
-//trash #2
 
