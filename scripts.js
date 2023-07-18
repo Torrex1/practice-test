@@ -3,8 +3,9 @@ let filters = undefined;
 let searchValue = '';
 
 const modalCards = document.querySelector('.modalCards');
-
 const ed_card = document.querySelector('.wrapper_body');
+
+const le = [];
 
 // создание уведомления
 function alertCreate() {
@@ -39,7 +40,11 @@ function render() {
         for (let groupId in listItem.groups) {
             let group = listItem.groups[groupId];
 
-            if (!filterGroup(group)) continue;
+            if (!filterGroup(group)) {
+                continue;
+            } else {
+                le.push(group);
+            }
 
             buffer += `
                 <div class="speciality-card" id="${group.id}">
@@ -68,16 +73,17 @@ function render() {
 
     document.querySelectorAll('.card-name').forEach(name => {
         document.querySelectorAll('.speciality-card').forEach(card => {
-            const checkbox = document.querySelector('.checkboxCard');
 
+            // запрет на выделение текста
+            card.addEventListener('selectstart', function (event) {
+                event.preventDefault();
+                return false;
+            })
+
+            const checkbox = document.querySelector('.checkboxCard');
             name.addEventListener('click', () => {
 
                 if (card.contains(name)) {
-                    // запрет на выделение текста
-                    name.addEventListener('selectstart', function (event) {
-                        event.preventDefault();
-                        return false;
-                    })
 
                     // работа вне модального окна
                     if (ed_card.contains(card)) {
@@ -152,6 +158,19 @@ function render() {
     })
 }
 
+function setIcon() {
+    document.querySelectorAll('.speciality-card').forEach(card => {
+        for (const item of le) {
+            if (item.id === card.id) {
+                let image = document.createElement('img');
+                image.src = 'assets/laptop-svgrepo-com.svg';
+                image.style.width = '30px';
+                card.appendChild(image);
+            }
+        }
+    })
+}
+
 function filterGroup(group) {
     let flags = {
         "type_order" : false,
@@ -207,6 +226,7 @@ function filterEvent(event) {
         if (btn.getAttribute('state') === 'true') {
             if (btn.dataset.filterType !== 'dot') {
                 let filterValues = arrayStrToNumbers(btn.dataset.filter.split(','));
+                console.log(filterValues);
 
                 filters[btn.dataset.filterType] = filters[btn.dataset.filterType].concat(filterValues);
             } else {
