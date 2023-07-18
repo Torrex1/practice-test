@@ -51,8 +51,8 @@ function render() {
 
     document.querySelectorAll('.card-name').forEach(name => {
         document.querySelectorAll('.speciality-card').forEach(card => {
-
             const checkbox = document.querySelector('.checkboxCard');
+
             name.addEventListener('click', () => {
                 if (card.contains(name)) {
 
@@ -111,10 +111,10 @@ function render() {
 
                         //удаление карточки из модального окна
                         document.querySelector('.removeCard').addEventListener('click', () => {
-                            if (getComputedStyle(card).backgroundColor) {
-                                card.classList.remove('card-color');
+                            if (card.classList.contains('card-color')) {
                                 ed_card.insertBefore(card, document.querySelector('.speciality-card'));
                             }
+                            card.classList.remove('card-color');
                         })
                     }
                 }
@@ -239,6 +239,8 @@ async function init() {
     searchHandler();
     filterHandler();
     hide_show_text();
+    setIcon(group);
+
 }
 init();
                                                 // ***temp trash***
