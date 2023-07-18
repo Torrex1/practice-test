@@ -113,8 +113,6 @@ function render() {
                         document.querySelector('.removeCard').addEventListener('click', () => {
 
                             if (card.classList.contains('card-color')) {
-                                // card.classList.remove('card-color');
-                                // ed_card.insertBefore(card, document.querySelector('.speciality-card'));
                                 card.remove();
                                 render();
                             }
