@@ -90,14 +90,14 @@ function render() {
 
                         // снятие флажка у checkbox при выходе из модального окна
                         document.querySelector('.modal').addEventListener('hidden.bs.modal', () => {
-                            checkbox.checked = false;
+                            // checkbox.checked = false;
 
                             if (checkbox.checked === false)
                                 card.classList.remove('card-color');
 
-                            if (modalCards.childElementCount === 0) {
+                            if (modalCards.childElementCount === 0)
                                 checkbox.setAttribute('disabled', "");
-                            }
+
                         })
 
                         // при клике на флашок, выделяются все карточки
@@ -111,10 +111,14 @@ function render() {
 
                         //удаление карточки из модального окна
                         document.querySelector('.removeCard').addEventListener('click', () => {
+
                             if (card.classList.contains('card-color')) {
-                                ed_card.insertBefore(card, document.querySelector('.speciality-card'));
+                                // card.classList.remove('card-color');
+                                // ed_card.insertBefore(card, document.querySelector('.speciality-card'));
+                                card.remove();
+                                render();
                             }
-                            card.classList.remove('card-color');
+
                         })
                     }
                 }
