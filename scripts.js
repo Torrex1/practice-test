@@ -5,8 +5,6 @@ let searchValue = '';
 const modalCards = document.querySelector('.modalCards');
 const ed_card = document.querySelector('.wrapper_body');
 
-const le = [];
-
 // создание уведомления
 function alertCreate() {
     let alert = document.createElement('div');
@@ -40,11 +38,8 @@ function render() {
         for (let groupId in listItem.groups) {
             let group = listItem.groups[groupId];
 
-            if (!filterGroup(group)) {
+            if (!filterGroup(group))
                 continue;
-            } else {
-                le.push(group);
-            }
 
             buffer += `
                 <div class="speciality-card" id="${group.id}">
@@ -63,10 +58,12 @@ function render() {
                                 <td>${group.quantity}</td>
                                 <td id="edu_type">${group.type}</td>
                                 <td id="edu_form">${group.education_form}</td>
+                                <td id="dot" hidden>${group.dot}</td>
                             </tr>
                         </table>
                     </div>
                 </div>`
+
         }
     }
     ed_card.innerHTML = buffer;
@@ -159,18 +156,6 @@ function render() {
     })
 }
 
-function setIcon() {
-    document.querySelectorAll('.speciality-card').forEach(card => {
-        for (const item of le) {
-            if (item.id === card.id) {
-                let image = document.createElement('img');
-                image.src = 'assets/laptop-svgrepo-com.svg';
-                image.style.width = '30px';
-                card.appendChild(image);
-            }
-        }
-    })
-}
 
 function filterGroup(group) {
     let flags = {
@@ -186,10 +171,12 @@ function filterGroup(group) {
             if (value.includes(group[filtersKey]) || value.length === 0)
                 flags[filtersKey] = true;
         } else {
+
             let value = filters[filtersKey];
 
-            if (group[filtersKey])
+            if (group[filtersKey]) {
                 flags["form_group"] = true;
+            }
 
             if (value === false)
                 continue;
@@ -227,7 +214,6 @@ function filterEvent(event) {
         if (btn.getAttribute('state') === 'true') {
             if (btn.dataset.filterType !== 'dot') {
                 let filterValues = arrayStrToNumbers(btn.dataset.filter.split(','));
-                console.log(filterValues);
 
                 filters[btn.dataset.filterType] = filters[btn.dataset.filterType].concat(filterValues);
             } else {
