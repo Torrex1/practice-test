@@ -87,6 +87,14 @@ function render() {
                         } else {
                             // создание уведомления
                             alertCreate();
+
+                            setTimeout(function () {
+                                document.querySelector('.alert').classList.remove('show');
+                                setTimeout(function () {
+                                    document.querySelector('#alertContainer').removeChild(document.querySelector('.alert'))
+                                }, 300);
+                            }, 2000);
+
                         }
                     }
 
