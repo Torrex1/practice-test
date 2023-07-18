@@ -87,6 +87,7 @@ function render() {
 
                     // работа вне модального окна
                     if (ed_card.contains(card)) {
+
                         // ограничение на количество карточек
                         if (modalCards.childElementCount < 3) {
                             modalCards.append(card);
