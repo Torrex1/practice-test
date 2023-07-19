@@ -161,8 +161,9 @@ function setIcon() {
     document.querySelectorAll('.speciality-card').forEach(card => {
         if (card.innerHTML.includes('true')) {
             let image = document.createElement('img');
-            image.src = 'assets/laptop_icon.png';
+            image.src = 'assets/icon-distance-education.png';
             image.classList.add('icon-style');
+            image.setAttribute('title', 'обучение с использованием дистанционных образовательных технологий (ДОТ)');
             card.append(image);
         }
     })
@@ -285,6 +286,7 @@ async function init() {
     searchHandler();
     filterHandler();
     hide_show_text();
+
 }
 init();
 
