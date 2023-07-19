@@ -71,7 +71,6 @@ function render() {
 
     document.querySelectorAll('.speciality-card').forEach(card => {
         document.querySelectorAll('.card-name').forEach(name => {
-
             // запрет на выделение текста
             card.addEventListener('selectstart', function (event) {
                 event.preventDefault();
@@ -79,79 +78,57 @@ function render() {
             })
 
             const checkbox = document.querySelector('.checkboxCard');
-            name.addEventListener('click', () => {
 
-                if (card.contains(name)) {
+            if (card.contains(name)) {
+                name.addEventListener('click', (event) => {
+                    card.classList.toggle('card-color');
+                })
+            }
 
-                    // работа вне модального окна
-                    if (ed_card.contains(card)) {
+            // добавление карточки в модальное окно
+            document.querySelector('.addCard').addEventListener('click', () => {
+                if (card.classList.contains('card-color')) {
+                    card.classList.remove('card-color');
+                    modalCards.append(card);
+                    card.classList.remove('card-color');
 
-                        // ограничение на количество карточек
-                        if (modalCards.childElementCount < 3) {
-                            modalCards.append(card);
-                        } else {
-                            // создание уведомления
-                            alertCreate();
-
-                            setTimeout(function () {
-                                document.querySelector('.alert').classList.remove('show');
-                                setTimeout(function () {
-                                    document.querySelector('#alertContainer').removeChild(document.querySelector('.alert'))
-                                }, 300);
-                            }, 2000);
-
-                        }
-                    }
-
-                    // работа в модальном окне
-                    if (modalCards.contains(card)) {
-
-                        document.querySelector('#modal_text').style.display = 'none';
-                        checkbox.removeAttribute('disabled');
-
-                        // добавление стиля карточкам
-                        name.addEventListener('click', () => {
-                            card.classList.toggle('card-color');
-                        })
-
-                        // добавление атрибута на чекбокс
-                        checkbox.addEventListener('click', (event) => {
-                            event.target.setAttribute('checked', event.target.getAttribute('checked') !== 'true');
-                        })
-
-                        // снятие флажка у checkbox при выходе из модального окна
-                        document.querySelector('.modal').addEventListener('hidden.bs.modal', () => {
-                            checkbox.checked = false;
-
-                            if (checkbox.checked === false)
-                                card.classList.remove('card-color');
-
-                            if (modalCards.childElementCount === 0)
-                                checkbox.setAttribute('disabled', "");
-
-                        })
-
-                        // при клике на флашок, выделяются все карточки
-                        checkbox.addEventListener('click', () => {
-                            if (checkbox.checked === true) {
-                                card.classList.add('card-color');
-                            } else {
-                                card.classList.remove('card-color');
-                            }
-                        })
-
-                        //удаление карточки из модального окна
-                        document.querySelector('.removeCard').addEventListener('click', () => {
-
-                            if (card.classList.contains('card-color')) {
-                                card.remove();
-                                render();
-                            }
-
-                        })
-                    }
+                    document.querySelector('#modal_text').style.display = 'none';
+                    checkbox.removeAttribute('disabled');
                 }
-            });
+            })
+
+
+            // обработчик события при открытии модального окна
+            document.querySelector('.modal').addEventListener('shown.bs.modal', () => {
+
+                // обработчик нажатия на checkbox
+                checkbox.addEventListener('click', () => {
+
+                    if (checkbox.checked && modalCards.contains(card)) {
+                        card.classList.add('card-color');
+                    } else {
+                        card.classList.remove('card-color');
+                    }
+                })
+
+
+                // обработчик кнопки удаления карточек
+                document.querySelector('.removeCard').addEventListener('click', () => {
+                    if (card.classList.contains('card-color')) {
+                        card.classList.remove('card-color');
+                        card.remove();
+                        ed_card.append(card);
+                    }
+
+                    // снятие флажка при отсутсвии карточек в модальном окне
+                    if (modalCards.childElementCount === 0) {
+                        checkbox.checked = false;
+                        checkbox.setAttribute('disabled', "");
+                    }
+                })
+
+            })
+
         })
     })
 
@@ -290,4 +267,85 @@ async function init() {
 }
 init();
 
-
+// TRASH
+// if (card.contains(name)) {
+//
+//     // работа вне модального окна
+//     if (ed_card.contains(card)) {
+//
+//         name.addEventListener('click', () => {
+//             card.classList.toggle('card-color');
+//         })
+//
+//         // добавление карточки в модальное окно
+//         document.querySelector('.addCard').addEventListener('click', () => {
+//             if (card.classList.contains('card-color')) {
+//                 modalCards.append(card);
+//                 card.classList.remove('card-color');
+//
+//                 // включение checkbox
+//                 document.querySelector('#modal_text').style.display = 'none';
+//                 checkbox.removeAttribute('disabled');
+//             }
+//         })
+//         // ограничение на количество карточек
+//         // if (modalCards.childElementCount < 3) {
+//         //     // modalCards.append(card);
+//         // } else {
+//         //     // создание уведомления
+//         //     alertCreate();
+//         //
+//         //     setTimeout(function () {
+//         //         document.querySelector('.alert').classList.remove('show');
+//         //         setTimeout(function () {
+//         //             document.querySelector('#alertContainer').removeChild(document.querySelector('.alert'))
+//         //         }, 300);
+//         //     }, 2000);
+//         //
+//         // }
+//     }
+//
+//
+//
+//     // работа в модальном окне
+//     if (modalCards.contains(card)) {
+//         // добавление стиля карточкам
+//         // name.addEventListener('click', () => {
+//         //     card.classList.toggle('card-color');
+//         // })
+//
+//         if (checkbox.checked === true) {
+//             console.log(1);
+//         }
+//
+//         // снятие флажка у checkbox при выходе из модального окна
+//         document.querySelector('.modal').addEventListener('hidden.bs.modal', () => {
+//             checkbox.checked = false;
+//             card.classList.remove('card-color');
+//
+//             if (modalCards.childElementCount === 0)
+//                 checkbox.setAttribute('disabled', "");
+//         })
+//
+//         // при клике на флашок, выделяются все карточки
+//         checkbox.addEventListener('click', () => {
+//             if (checkbox.checked === true) {
+//                 card.classList.add('card-color');
+//             } else {
+//                 card.classList.remove('card-color');
+//             }
+//         })
+//
+//         //удаление карточки из модального окна
+//         document.querySelector('.removeCard').addEventListener('click', () => {
+//             checkbox.checked = false;
+//             checkbox.setAttribute('disabled', '');
+//             if (card.classList.contains('card-color')) {
+//                 card.remove();
+//                 render();
+//             }
+//         })
+//     }
+//
+//
+// }
