@@ -69,34 +69,69 @@ function render() {
     ed_card.innerHTML = buffer;
     setIcon();
 
+    temp();
+}
+
+const checkbox = document.querySelector('.checkboxCard');
+function temp() {
+
     document.querySelectorAll('.speciality-card').forEach(card => {
+
+        document.querySelector('.addCard').addEventListener('click', () => {
+            for (let listId in lists) {
+                let listItem = lists[listId];
+
+                for (let groupId in listItem.groups) {
+                    let group = listItem.groups[groupId];
+
+                    // добавление карточки в модалку
+                    if (modalCards.childElementCount < 3 && card.hasAttribute('selected')) {
+                        modalCards.append(card);
+                        card.classList.remove('card-color');
+                    } else if (card.id === group.id) {
+                        modalCards.querySelectorAll('.speciality-card').forEach(m_card => {
+
+                            if (m_card.querySelector('.card-name').textContent === listItem.name && card.hasAttribute('selected')) {
+                                modalCards.append(card);
+                                card.classList.remove('card-color');
+                            }
+                        })
+                    }
+
+                }
+            }
+        })
         document.querySelectorAll('.card-name').forEach(name => {
+
+
+            // document.querySelector('.addCard').addEventListener('click', () => {
+            //         // alertCreate();
+            //         // card.classList.remove('card-color');
+            //         // setTimeout(function () {
+            //         //     document.querySelector('.alert').classList.remove('show');
+            //         //     setTimeout(function () {
+            //         //         document.querySelector('#alertContainer').removeChild(document.querySelector('.alert'))
+            //         //     }, 300);
+            //         // }, 2000);
+            // })
+
+            // добавление карточки в модальное окно
+
+
+
             // запрет на выделение текста
-            card.addEventListener('selectstart', function (event) {
+            card.addEventListener('selectstart', (event) => {
                 event.preventDefault();
                 return false;
             })
 
-            const checkbox = document.querySelector('.checkboxCard');
 
             if (card.contains(name)) {
                 name.addEventListener('click', (event) => {
                     card.classList.toggle('card-color');
+                    card.toggleAttribute('selected');
                 })
             }
-
-            // добавление карточки в модальное окно
-            document.querySelector('.addCard').addEventListener('click', () => {
-                if (card.classList.contains('card-color')) {
-                    card.classList.remove('card-color');
-                    modalCards.append(card);
-                    card.classList.remove('card-color');
-
-                    document.querySelector('#modal_text').style.display = 'none';
-                    checkbox.removeAttribute('disabled');
-                }
-            })
-
 
             // обработчик события при открытии модального окна
             document.querySelector('.modal').addEventListener('shown.bs.modal', () => {
@@ -111,13 +146,12 @@ function render() {
                     }
                 })
 
-
                 // обработчик кнопки удаления карточек
                 document.querySelector('.removeCard').addEventListener('click', () => {
                     if (card.classList.contains('card-color')) {
                         card.classList.remove('card-color');
                         card.remove();
-                        ed_card.append(card);
+                        ed_card.insertBefore(card, document.querySelector('.speciality-card'));
                     }
 
                     // снятие флажка при отсутсвии карточек в модальном окне
@@ -131,7 +165,6 @@ function render() {
 
         })
     })
-
 }
 
 function setIcon() {
@@ -174,7 +207,6 @@ function filterGroup(group) {
                 flags["form_group"] = false;
         }
     }
-
     return flags["type_order"] && flags["form_group"] && flags["preparation_level"];
 }
 
@@ -263,7 +295,6 @@ async function init() {
     searchHandler();
     filterHandler();
     hide_show_text();
-
 }
 init();
 

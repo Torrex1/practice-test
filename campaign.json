@@ -1152,7 +1152,7 @@
         "type_order": 6,
         "disabled": false,
         "quantity": 30,
-        "form_group": 13,
+        "form_group": 3,
         "selected": false
       },
       {
@@ -1165,7 +1165,7 @@
         "type_order": 6,
         "disabled": false,
         "quantity": 100,
-        "form_group": 12,
+        "form_group": 2,
         "selected": false
       }
     ],
