@@ -69,8 +69,15 @@ function render() {
     ed_card.innerHTML = buffer;
     setIcon();
 
-    setCards();
+    setCards()
+}
 
+const toastContent = document.querySelector('.toast');
+const toastButton = document.querySelector('#toast-button');
+
+function showToast() {
+    const toast = new bootstrap.Toast(toastContent);
+    toast.show();
 }
 
 const checkbox = document.querySelector('.checkboxCard');
@@ -84,41 +91,29 @@ function setCards() {
                 for (let groupId in listItem.groups) {
                     let group = listItem.groups[groupId];
 
-                    // добавление карточки в модалку
+                        // добавление карточки в модальное окно
                     if (modalCards.childElementCount < 3 && card.hasAttribute('selected')) {
                         modalCards.append(card);
                         card.classList.remove('card-color');
-                    } else if (card.id === group.id) {
-                        modalCards.querySelectorAll('.speciality-card').forEach(m_card => {
+                        checkbox.removeAttribute('disabled');
+                        document.querySelector('#modal_text').style.display = 'none';
 
-                            if (m_card.querySelector('.card-name').textContent === listItem.name && card.hasAttribute('selected')) {
-                                modalCards.append(card);
-                                card.classList.remove('card-color');
+                        // проверка на совпадение имен карточек с именами в модальном окне при добавлении
+                    } else if (card.id === group.id) {
+                        modalCards.querySelectorAll('.speciality-card').forEach(modal_card => {
+
+                            if (modal_card.querySelector('.card-name').textContent === listItem.name) {
+                                if (card.hasAttribute('selected')) {
+                                    modalCards.append(card);
+                                    card.classList.remove('card-color');
+                                }
                             }
                         })
                     }
                 }
             }
         })
-
         document.querySelectorAll('.card-name').forEach(name => {
-
-            // document.querySelector('.addCard').addEventListener('click', () => {
-            //else {
-            //                                 alertCreate();
-            //                                 card.classList.remove('card-color');
-            //                                 setTimeout(function () {
-            //                                     document.querySelector('.alert').classList.remove('show');
-            //                                     setTimeout(function () {
-            //                                         document.querySelector('#alertContainer').removeChild(document.querySelector('.alert'))
-            //                                     }, 300);
-            //                                 }, 2000);
-            //                             }
-            // })
-
-            // добавление карточки в модальное окно
-
-
 
             // запрет на выделение текста
             card.addEventListener('selectstart', (event) => {
@@ -159,6 +154,7 @@ function setCards() {
                     if (modalCards.childElementCount === 0) {
                         checkbox.checked = false;
                         checkbox.setAttribute('disabled', "");
+                        document.querySelector('#modal_text').style.display = '';
                     }
                 })
 
