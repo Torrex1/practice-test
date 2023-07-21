@@ -95,6 +95,7 @@ function setCards() {
                     if (modalCards.childElementCount < 3 && card.hasAttribute('selected')) {
                         modalCards.append(card);
                         card.classList.remove('card-color');
+                        card.removeAttribute('selected');
                         checkbox.removeAttribute('disabled');
                         document.querySelector('#modal_text').style.display = 'none';
 
@@ -143,16 +144,19 @@ function setCards() {
 
                     if (checkbox.checked && modalCards.contains(card)) {
                         card.classList.add('card-color');
+                        card.setAttribute('selected', "");
                     } else {
                         card.classList.remove('card-color');
+                        card.removeAttribute('selected');
                     }
                 })
 
                 // обработчик кнопки удаления карточек
                 document.querySelector('.removeCard').addEventListener('click', () => {
-                    if (card.classList.contains('card-color')) {
+                    if (card.hasAttribute('selected')) {
                         card.classList.remove('card-color');
                         card.remove();
+                        card.removeAttribute('selected');
                         ed_card.insertBefore(card, document.querySelector('.speciality-card'));
                     }
 
