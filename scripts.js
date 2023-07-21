@@ -129,6 +129,12 @@ function setCards() {
                 })
             }
 
+            // обработчик события при закрытии модального окна
+            document.querySelector('.modal').addEventListener('hidden.bs.modal', () => {
+                checkbox.checked = false;
+                card.classList.remove('card-color');
+            })
+
             // обработчик события при открытии модального окна
             document.querySelector('.modal').addEventListener('shown.bs.modal', () => {
 
