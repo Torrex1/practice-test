@@ -72,9 +72,7 @@ function render() {
     setCards()
 }
 
-const toastContent = document.querySelector('.toast');
-const toastButton = document.querySelector('#toast-button');
-
+const toastContent = document.querySelector('#liveToast');
 function showToast() {
     const toast = new bootstrap.Toast(toastContent);
     toast.show();
@@ -90,8 +88,6 @@ function setCards() {
 
                 for (let groupId in listItem.groups) {
                     let group = listItem.groups[groupId];
-
-
 
                         // добавление карточки в модальное окно
                     if (modalCards.childElementCount < 3) {
@@ -109,16 +105,16 @@ function setCards() {
                     } else if (card.id === group.id) {
                         modalCards.querySelectorAll('.speciality-card').forEach(modal_card => {
 
+                            // alert при выборе больше 3-х специальностей
+                            if (modalCards.children.length === 3 && card.hasAttribute('selected')) {
 
-                            if (modalCards.children.length === 3) {
-                                if (card.hasAttribute('selected')) {
-                                    if (card.querySelector('.card-name').textContent !== modal_card.querySelector('.card-name').textContent) {
-                                        showToast();
-                                    }
+                                if (card.querySelector('.card-name').textContent !== modal_card.querySelector('.card-name').textContent) {
+                                    showToast();
+                                    card.classList.remove('card-color');
                                 }
                             }
 
-
+                            // добавление карточки с таким же названием в модальное окно
                             if (modal_card.querySelector('.card-name').textContent === listItem.name) {
 
                                 if (card.hasAttribute('selected')) {
