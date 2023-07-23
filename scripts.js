@@ -91,19 +91,36 @@ function setCards() {
                 for (let groupId in listItem.groups) {
                     let group = listItem.groups[groupId];
 
+
+
                         // добавление карточки в модальное окно
-                    if (modalCards.childElementCount < 3 && card.hasAttribute('selected')) {
-                        modalCards.append(card);
-                        card.classList.remove('card-color');
-                        card.removeAttribute('selected');
-                        checkbox.removeAttribute('disabled');
-                        document.querySelector('#modal_text').style.display = 'none';
+                    if (modalCards.childElementCount < 3) {
+
+                        if (card.hasAttribute('selected')) {
+
+                            modalCards.append(card);
+                            card.classList.remove('card-color');
+                            card.removeAttribute('selected');
+                            checkbox.removeAttribute('disabled');
+                            document.querySelector('#modal_text').style.display = 'none';
+                        }
 
                         // проверка на совпадение имен карточек с именами в модальном окне при добавлении
                     } else if (card.id === group.id) {
                         modalCards.querySelectorAll('.speciality-card').forEach(modal_card => {
 
+
+                            if (modalCards.children.length === 3) {
+                                if (card.hasAttribute('selected')) {
+                                    if (card.querySelector('.card-name').textContent !== modal_card.querySelector('.card-name').textContent) {
+                                        showToast();
+                                    }
+                                }
+                            }
+
+
                             if (modal_card.querySelector('.card-name').textContent === listItem.name) {
+
                                 if (card.hasAttribute('selected')) {
                                     modalCards.append(card);
                                     card.classList.remove('card-color');
@@ -114,6 +131,7 @@ function setCards() {
                 }
             }
         })
+
         document.querySelectorAll('.card-name').forEach(name => {
 
             // запрет на выделение текста
