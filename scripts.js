@@ -106,7 +106,7 @@ function setCards() {
                         modalCards.querySelectorAll('.speciality-card').forEach(modal_card => {
 
                             // alert при выборе больше 3-х специальностей
-                            if (modalCards.children.length === 3 && card.hasAttribute('selected')) {
+                            if (modalCards.children.length >= 3 && card.classList.contains('card-color')) {
 
                                 if (card.querySelector('.card-name').textContent !== modal_card.querySelector('.card-name').textContent) {
                                     showToast();
