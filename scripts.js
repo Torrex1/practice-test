@@ -10,23 +10,6 @@ async function json_file() {
     return await resp.json();
 }
 
-// создание уведомления
-function alertCreate() {
-    let alert = document.createElement('div');
-    alert.classList.add('alert', 'alert-warning', 'alert-dismissible', 'fade', 'show');
-    alert.setAttribute('role', 'alert');
-    alert.innerText = 'Нельзя выбрать больше 3-х специальностей!';
-
-    let closeAlert = document.createElement('button');
-    closeAlert.classList.add('btn-close', 'shadow-none');
-    closeAlert.setAttribute('type', 'button');
-    closeAlert.setAttribute('data-bs-dismiss', 'alert');
-    closeAlert.setAttribute('aria-label', 'Close');
-
-    alert.append(closeAlert);
-    document.querySelector('#alertContainer').append(alert);
-}
-
 function render() {
     let buffer = '';
 
